@@ -18,6 +18,8 @@
 #define SIM_CMD_NAMED_MARKER    13
 #define SIM_CMD_SET_THREAD_NAME 14
 
+#define SIM_CMD_ADD_APPROX 21
+
 #define SIM_OPT_INSTRUMENT_DETAILED    0
 #define SIM_OPT_INSTRUMENT_WARMUP      1
 #define SIM_OPT_INSTRUMENT_FASTFORWARD 2
@@ -90,5 +92,5 @@
 #define SimUser(cmd, arg)         SimMagic2(SIM_CMD_USER, cmd, arg)
 #define SimSetInstrumentMode(opt) SimMagic1(SIM_CMD_INSTRUMENT_MODE, opt)
 #define SimInSimulator()          (SimMagic0(SIM_CMD_IN_SIMULATOR)!=SIM_CMD_IN_SIMULATOR)
-
+#define SimAddApprox(start, finish)            SimMagic2(SIM_CMD_ADD_APPROX, start, finish)
 #endif /* __SIM_API */

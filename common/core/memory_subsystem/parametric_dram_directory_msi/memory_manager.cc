@@ -659,4 +659,9 @@ MemoryManager::disableModels()
       m_dram_cntlr->getDramPerfModel()->disable();
 }
 
+void 
+MemoryManager::addApprox(addr_64 start, addr_64 end) {
+   getL1DCache()->addApprox(start, end);
+}
+
 }

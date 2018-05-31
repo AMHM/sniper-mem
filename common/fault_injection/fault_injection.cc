@@ -1,5 +1,6 @@
 #include "fault_injection.h"
 #include "fault_injector_random.h"
+#include "fault_injector_range.h"
 #include "simulator.h"
 #include "config.hpp"
 #include "log.h"
@@ -27,6 +28,8 @@ FaultinjectionManager::create()
       injector = FAULT_INJECTOR_NONE;
    else if (s_injector == "random")
       injector = FAULT_INJECTOR_RANDOM;
+   else if (s_injector == "range")
+      injector = FAULT_INJECTOR_RANGE;
    else
       LOG_PRINT_ERROR("Unknown fault injector %s", s_injector.c_str());
 
@@ -48,6 +51,8 @@ FaultinjectionManager::getFaultInjector(UInt32 core_id, MemComponent::component_
          return new FaultInjector(core_id, mem_component);
       case FAULT_INJECTOR_RANDOM:
          return new FaultInjectorRandom(core_id, mem_component);
+      case FAULT_INJECTOR_RANGE:
+         return new FaultInjectorRange(core_id, mem_component);
    }
 
    return NULL;
@@ -88,8 +93,30 @@ FaultInjector::preRead(IntPtr addr, IntPtr location, UInt32 data_size, Byte *fau
 }
 
 void
+FaultInjector::postRead(IntPtr addr, IntPtr location, UInt32 data_size, Byte *fault, SubsecondTime time)
+{
+   // Data at virtual address <addr> has just been read with size <data_size>.
+   // <location> corresponds to the physical location (cache line) where the data lives.
+   // Update <fault> here according to errors that have accumulated in this memory location.
+}
+
+void
 FaultInjector::postWrite(IntPtr addr, IntPtr location, UInt32 data_size, Byte *fault, SubsecondTime time)
 {
    // Data at virtual address <addr> has just been written to.
    // Update <fault> here according to errors that occured during the writing of this memory location.
+}
+
+
+void 
+FaultInjector::addApprox(addr_64 start, addr_64 end)
+{
+      printf("\n****************\nAdding range : %lx %lx \n", start, end);
+      approxRanges.insert(Range(start, end));
+}
+
+bool 
+FaultInjector::in_range(addr_64 start, UInt32 data_length)
+{
+    return approxRanges.find(Range(start, start+data_length)) != approxRanges.end();
 }

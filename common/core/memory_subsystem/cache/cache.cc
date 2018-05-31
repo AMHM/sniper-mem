@@ -103,9 +103,13 @@ Cache::accessSingleLine(IntPtr addr, access_t access_type,
    {
       // NOTE: assumes error occurs in memory. If we want to model bus errors, insert the error into buff instead
       if (m_fault_injector)
-         m_fault_injector->preRead(addr, set_index * m_associativity + line_index, bytes, (Byte*)m_sets[set_index]->getDataPtr(line_index, block_offset), now);
+            m_fault_injector->preRead(addr, set_index * m_associativity + line_index, bytes, (Byte*)m_sets[set_index]->getDataPtr(line_index, block_offset), now);
 
       set->read_line(line_index, block_offset, buff, bytes, update_replacement);
+
+      if (m_fault_injector)
+            m_fault_injector->postRead(addr, set_index * m_associativity + line_index, bytes, (Byte*)buff, now);
+
    }
    else
    {
@@ -182,5 +186,14 @@ Cache::updateHits(Core::mem_op_t mem_op_type, UInt64 hits)
    {
       m_num_accesses += hits;
       m_num_hits += hits;
+   }
+}
+
+void
+Cache::addApprox(addr_64 start, addr_64 end) {
+   if(m_fault_injector)
+   {
+      printf("[FI] Got fault injector\n");
+      m_fault_injector->addApprox(start,end);
    }
 }

@@ -99,6 +99,12 @@ UInt64 MagicServer::Magic_unlocked(thread_id_t thread_id, core_id_t core_id, UIn
          return setInstrumentationMode(arg0);
       case SIM_CMD_MHZ_GET:
          return getFrequency(arg0);
+      case SIM_CMD_ADD_APPROX:
+      {
+         Core *core = Sim()->getCoreManager()->getCoreFromID(core_id);
+         core->addApprox(arg0,arg1);
+         return 0;
+      }
       default:
          LOG_ASSERT_ERROR(false, "Got invalid Magic %lu, arg0(%lu) arg1(%lu)", cmd, arg0, arg1);
    }

@@ -521,6 +521,11 @@ applicationMemCopy(void *dest, const void *src, size_t n)
    memcpy(dest, src, n);
 }
 
+void Core::addApprox(addr_64 start, addr_64 end)
+{
+   getMemoryManager()->addApprox(start, end);
+}
+
 void
 Core::emulateCpuid(UInt32 eax, UInt32 ecx, cpuid_result_t &res) const
 {

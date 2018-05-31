@@ -3,6 +3,10 @@
 
 #include "fixed_types.h"
 #include "core.h"
+#include <set>
+
+typedef UInt64 addr_64;
+typedef std::pair<addr_64, addr_64> Range;
 
 class FaultInjector;
 
@@ -19,6 +23,7 @@ class FaultinjectionManager
       enum fault_injector_t {
          FAULT_INJECTOR_NONE,
          FAULT_INJECTOR_RANDOM,
+         FAULT_INJECTOR_RANGE,
       };
       fault_injector_t m_injector;
 
@@ -38,11 +43,26 @@ class FaultInjector
       UInt32 m_core_id;
       MemComponent::component_t m_mem_component;
 
+      struct RangeCompare
+      {
+            //overlapping ranges are considered equivalent
+            bool operator()(const Range& lhv, const Range& rhv) const
+            {   
+                  return lhv.second < rhv.first;
+            } 
+      };
+      std::set<Range, RangeCompare> approxRanges;
+      
    public:
       FaultInjector(UInt32 core_id, MemComponent::component_t mem_component);
 
       virtual void preRead(IntPtr addr, IntPtr location, UInt32 data_size, Byte *fault, SubsecondTime time);
+      virtual void postRead(IntPtr addr, IntPtr location, UInt32 data_size, Byte *fault, SubsecondTime time);
       virtual void postWrite(IntPtr addr, IntPtr location, UInt32 data_size, Byte *fault, SubsecondTime time);
+
+      void addApprox(addr_64 start, addr_64 end);
+      bool in_range(addr_64 start, UInt32 data_length);
+      bool InjectFault(Byte* data, UInt32 len, double ber);
 };
 
 #endif // __FAULT_INJECTION_H

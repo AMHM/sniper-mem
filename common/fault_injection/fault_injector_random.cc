@@ -11,14 +11,10 @@ FaultInjectorRandom::FaultInjectorRandom(UInt32 core_id, MemComponent::component
       m_active = false;
 }
 
-void
-FaultInjectorRandom::preRead(IntPtr addr, IntPtr location, UInt32 data_size, Byte *fault, SubsecondTime time)
+void 
+FaultInjectorRandom::inject_random_fault(IntPtr addr, UInt32 data_size, Byte *fault)
 {
-   // Data at virtual address <addr> is about to be read with size <data_size>.
-   // <location> corresponds to the physical location (cache line) where the data lives.
-   // Update <fault> here according to errors that have accumulated in this memory location.
-
-   // Dummy random fault injector
+    // Dummy random fault injector
    if (m_active && (rng_next(m_rng) % 0xffff) == 0)
    {
       UInt32 bit_location = rng_next(m_rng) % data_size;
@@ -28,6 +24,21 @@ FaultInjectorRandom::preRead(IntPtr addr, IntPtr location, UInt32 data_size, Byt
 
       fault[bit_location / 8] |= 1 << (bit_location % 8);
    }
+}
+
+void
+FaultInjectorRandom::preRead(IntPtr addr, IntPtr location, UInt32 data_size, Byte *fault, SubsecondTime time)
+{
+   // Data at virtual address <addr> is about to be read with size <data_size>.
+   // <location> corresponds to the physical location (cache line) where the data lives.
+   // Update <fault> here according to errors that have accumulated in this memory location.
+
+   inject_random_fault(addr, data_size, fault);
+}
+
+void
+FaultInjectorRandom::postRead(IntPtr addr, IntPtr location, UInt32 data_size, Byte *fault, SubsecondTime time)
+{
 }
 
 void
