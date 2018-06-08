@@ -197,3 +197,12 @@ Cache::addApprox(addr_64 start, addr_64 end) {
       m_fault_injector->addApprox(start,end);
    }
 }
+
+void
+Cache::removeApprox(addr_64 start, addr_64 end) {
+   if(m_fault_injector)
+   {
+      printf("[FI] [Remove] Got fault injector\n");
+      m_fault_injector->removeApprox(start,end);
+   }
+}

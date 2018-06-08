@@ -6,6 +6,6 @@ $(TARGET): $(TARGET).o
 
 run_$(TARGET):
 	$(MAKE) -C /workspace/sniper/sniper-6.1/
-	../../run-sniper -s	biswadip.py -n 2 -c gainestown -g log/enabled="true" -g fault_injection/injector="range" -g fault_injection/type="toggle" --roi --viz -- ./memapprox -p 2
+	../../run-sniper -n 2 -c gainestown -g log/enabled="true" -g fault_injection/injector="range" -g fault_injection/type="toggle" -g fault_injection/affected="L1" --roi --viz -- ./memapprox
 
 CLEAN_EXTRA=viz

@@ -72,6 +72,7 @@ class Cache : public CacheBase
       void disable() { m_enabled = false; }
 
       void addApprox(addr_64 start, addr_64 end);
+      void removeApprox(addr_64 start, addr_64 end);
 };
 
 template <class T>

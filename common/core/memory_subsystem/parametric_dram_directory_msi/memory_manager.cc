@@ -661,7 +661,23 @@ MemoryManager::disableModels()
 
 void 
 MemoryManager::addApprox(addr_64 start, addr_64 end) {
-   getL1DCache()->addApprox(start, end);
+      String affected_memory = Sim()->getCfg()->getString("fault_injection/affected");
+      printf("[FI] Affected : %s\n", affected_memory.c_str());
+
+      if (affected_memory == "L1")
+      {
+            getL1DCache()->addApprox(start, end);
+      }
 }
 
+void 
+MemoryManager::removeApprox(addr_64 start, addr_64 end) {
+      String affected_memory = Sim()->getCfg()->getString("fault_injection/affected");
+      printf("[FI] [Removing] Affected : %s\n", affected_memory.c_str());
+
+      if (affected_memory == "L1")
+      {
+            getL1DCache()->removeApprox(start, end);
+      }
+}
 }

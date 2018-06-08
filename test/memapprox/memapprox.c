@@ -13,7 +13,7 @@ char *argv;
 	int i, arr[100];
 
 	SimRoiStart();
-	SimAddApprox(&arr[0],&arr[99]);
+	add_approx(&arr[0],&arr[99]);
 
 	for (i=0;i<100;i++)
 		arr[i] = 5;
@@ -33,6 +33,8 @@ char *argv;
 	} else {
 		printf("Memory approximation Test: Not running in the simulator\n"); fflush(stdout);
 	}
+
+	remove_approx(&arr[0],&arr[99]);
 
 	SimRoiEnd();
 }

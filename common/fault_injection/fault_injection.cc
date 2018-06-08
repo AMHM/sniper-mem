@@ -115,6 +115,14 @@ FaultInjector::addApprox(addr_64 start, addr_64 end)
       approxRanges.insert(Range(start, end));
 }
 
+void 
+FaultInjector::removeApprox(addr_64 start, addr_64 end)
+{
+      printf("\n****************\Removing range : %lx %lx \n", start, end);
+      approxRanges.erase(Range(start, end));
+}
+
+
 bool 
 FaultInjector::in_range(addr_64 start, UInt32 data_length)
 {

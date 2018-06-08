@@ -61,6 +61,7 @@ class FaultInjector
       virtual void postWrite(IntPtr addr, IntPtr location, UInt32 data_size, Byte *fault, SubsecondTime time);
 
       void addApprox(addr_64 start, addr_64 end);
+      void removeApprox(addr_64 start, addr_64 end);
       bool in_range(addr_64 start, UInt32 data_length);
       bool InjectFault(Byte* data, UInt32 len, double ber);
 };
