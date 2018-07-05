@@ -662,11 +662,17 @@ MemoryManager::disableModels()
 void 
 MemoryManager::addApprox(addr_64 start, addr_64 end) {
       String affected_memory = Sim()->getCfg()->getString("fault_injection/affected");
-      printf("[FI] Affected : %s\n", affected_memory.c_str());
 
-      if (affected_memory == "L1")
+      if (affected_memory.find("L1") != std::string::npos)
       {
+            printf("[FI] Adding faults in L1 Cache\n");
             getL1DCache()->addApprox(start, end);
+      }
+
+      if (affected_memory.find("L2") != std::string::npos)
+      {
+            printf("[FI] Adding faults in L2 Cache\n");
+            getCache(MemComponent::L2_CACHE)->addApprox(start, end);
       }
 }
 
@@ -675,9 +681,16 @@ MemoryManager::removeApprox(addr_64 start, addr_64 end) {
       String affected_memory = Sim()->getCfg()->getString("fault_injection/affected");
       printf("[FI] [Removing] Affected : %s\n", affected_memory.c_str());
 
-      if (affected_memory == "L1")
+      if (affected_memory.find("L1") != std::string::npos)
       {
+            printf("[FI] Removing faults from L1 Cache\n");
             getL1DCache()->removeApprox(start, end);
+      }
+
+      if (affected_memory.find("L2") != std::string::npos)
+      {
+            printf("[FI] Removing faults from L2 Cache\n");
+            getCache(MemComponent::L2_CACHE)->removeApprox(start, end);
       }
 }
 }

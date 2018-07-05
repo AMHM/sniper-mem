@@ -13,7 +13,7 @@ char *argv;
 	int i, arr[100];
 
 	SimRoiStart();
-	add_approx(&arr[0],&arr[99]);
+	add_approx((uint64_t)&arr[0],(uint64_t)&arr[99]);
 
 	for (i=0;i<100;i++)
 		arr[i] = 5;
@@ -21,10 +21,17 @@ char *argv;
 	arr[2] = 16000000;
 
 	fflush(stdout);
-	
+
+	// set_read_ber(0.1);
+
+	// for (i = 0; i < 100; i++)
+	// 	printf("%d ", arr[i]);
+
+	// set_read_ber(0.0001);
+
 	for (i=0;i<100;i++)
 		printf("%d ", arr[i]);
-
+		
 	printf("\n");
 	fflush(stdout);
 
@@ -34,7 +41,7 @@ char *argv;
 		printf("Memory approximation Test: Not running in the simulator\n"); fflush(stdout);
 	}
 
-	remove_approx(&arr[0],&arr[99]);
+	remove_approx((uint64_t)&arr[0],(uint64_t)&arr[99]);
 
 	SimRoiEnd();
 }

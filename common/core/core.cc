@@ -531,6 +531,16 @@ void Core::removeApprox(addr_64 start, addr_64 end)
    getMemoryManager()->removeApprox(start, end);
 }
 
+void Core::setReadBer(double ber)
+{
+    printf("[FI] Setting Read BER %lf\n", ber);
+}
+
+void Core::setWriteBer(double ber)
+{
+    printf("[FI] Setting Write BER %lf\n", ber);
+}
+
 void
 Core::emulateCpuid(UInt32 eax, UInt32 ecx, cpuid_result_t &res) const
 {

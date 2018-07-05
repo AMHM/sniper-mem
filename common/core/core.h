@@ -91,8 +91,12 @@ class Core
 
       MemoryResult accessMemory(lock_signal_t lock_signal, mem_op_t mem_op_type, IntPtr d_addr, char* data_buffer, UInt32 data_size, MemModeled modeled = MEM_MODELED_NONE, IntPtr eip = 0, SubsecondTime now = SubsecondTime::MaxTime(), bool is_fault_mask = false);
       MemoryResult nativeMemOp(lock_signal_t lock_signal, mem_op_t mem_op_type, IntPtr d_addr, char* data_buffer, UInt32 data_size);
+
       void addApprox(UInt64 start, UInt64 end);
       void removeApprox(UInt64 start, UInt64 end);
+
+      void setReadBer(double ber);
+      void setWriteBer(double ber);
 
       void accessMemoryFast(bool icache, mem_op_t mem_op_type, IntPtr address);
 

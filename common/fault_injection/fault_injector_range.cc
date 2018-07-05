@@ -4,6 +4,7 @@
 FaultInjectorRange::FaultInjectorRange(UInt32 core_id, MemComponent::component_t mem_component)
    : FaultInjectorRandom(core_id, mem_component)
 {
+    srand(time(0));
     printf("[FI] Created\n");
 }
 
@@ -14,8 +15,8 @@ FaultInjectorRange::inject_random_fault(IntPtr addr, UInt32 data_size, Byte *fau
    if (m_active)
    {
       for (UInt32 bit_location = 0; bit_location < data_size * 8; bit_location++) {
-            UInt64 random_probability = rng_next(m_rng);
-            if(random_probability%INV_BER  == 0) 
+            UInt64 random_probability = rand();
+            if (random_probability % INV_BER == 0)
             {
                 // printf("[FI] Inserting bit %d flip at address %" PRIxPTR " on access by core %d to component %s\n",
                 //     bit_location, addr, m_core_id, MemComponentString(m_mem_component));

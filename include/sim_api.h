@@ -20,6 +20,8 @@
 
 #define SIM_CMD_ADD_APPROX 21
 #define SIM_CMD_REMOVE_APPROX 22
+#define SIM_CMD_SET_READ_BER 23
+#define SIM_CMD_SET_WRITE_BER 24
 
 #define SIM_OPT_INSTRUMENT_DETAILED    0
 #define SIM_OPT_INSTRUMENT_WARMUP      1
@@ -95,4 +97,6 @@
 #define SimInSimulator()          (SimMagic0(SIM_CMD_IN_SIMULATOR)!=SIM_CMD_IN_SIMULATOR)
 #define add_approx(start, finish)            SimMagic2(SIM_CMD_ADD_APPROX, start, finish)
 #define remove_approx(start, finish)         SimMagic2(SIM_CMD_REMOVE_APPROX, start, finish)
+#define set_read_ber(ber)         SimMagic1(SIM_CMD_SET_READ_BER, ber)
+#define set_write_ber(ber)        SimMagic1(SIM_CMD_SET_WRITE_BER, ber)
 #endif /* __SIM_API */

@@ -2,7 +2,7 @@
 #define __FAULT_INJECTOR_RANGE_H
 
 #include "fault_injector_random.h"
-#define INV_BER 4
+#define INV_BER 256
 
 class FaultInjectorRange : public FaultInjectorRandom
 {

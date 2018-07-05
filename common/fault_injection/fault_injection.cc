@@ -118,7 +118,7 @@ FaultInjector::addApprox(addr_64 start, addr_64 end)
 void 
 FaultInjector::removeApprox(addr_64 start, addr_64 end)
 {
-      printf("\n****************\Removing range : %lx %lx \n", start, end);
+      printf("\n****************\nRemoving range : %lx %lx \n", start, end);
       approxRanges.erase(Range(start, end));
 }
 
