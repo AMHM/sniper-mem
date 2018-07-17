@@ -114,13 +114,13 @@ UInt64 MagicServer::Magic_unlocked(thread_id_t thread_id, core_id_t core_id, UIn
       case SIM_CMD_SET_READ_BER:
       {
          Core *core = Sim()->getCoreManager()->getCoreFromID(core_id);
-         core->setReadBer(arg0);
+         core->setReadBer(arg0, arg1);
          return 0;
       }
       case SIM_CMD_SET_WRITE_BER:
       {
          Core *core = Sim()->getCoreManager()->getCoreFromID(core_id);
-         core->setWriteBer(arg0);
+         core->setWriteBer(arg0, arg1);
          return 0;
       }
       default:

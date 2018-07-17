@@ -52,6 +52,8 @@ class FaultInjector
             } 
       };
       std::set<Range, RangeCompare> approxRanges;
+      UInt64 read_bit_eror_rate = 0;
+      UInt64 write_bit_eror_rate = 0;
       
    public:
       FaultInjector(UInt32 core_id, MemComponent::component_t mem_component);
@@ -64,6 +66,8 @@ class FaultInjector
       void removeApprox(addr_64 start, addr_64 end);
       bool in_range(addr_64 start, UInt32 data_length);
       bool InjectFault(Byte* data, UInt32 len, double ber);
+      void setReadBitErrorRate(UInt64 rate);
+      void setWriteBitErrorRate(UInt64 rate);
 };
 
 #endif // __FAULT_INJECTION_H

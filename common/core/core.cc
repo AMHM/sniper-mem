@@ -531,14 +531,18 @@ void Core::removeApprox(addr_64 start, addr_64 end)
    getMemoryManager()->removeApprox(start, end);
 }
 
-void Core::setReadBer(double ber)
+void Core::setReadBer(UInt64 component, UInt64 rate)
 {
-    printf("[FI] Setting Read BER %lf\n", ber);
+    MemComponent::component_t mem_component= static_cast<MemComponent::component_t>(component);
+    printf("[FI] Setting Read BER %lu for %s\n", rate, MemComponentString(mem_component));
+    getMemoryManager()->setReadBitErrorRate(mem_component, rate);
 }
 
-void Core::setWriteBer(double ber)
+void Core::setWriteBer(UInt64 component, UInt64 rate)
 {
-    printf("[FI] Setting Write BER %lf\n", ber);
+    MemComponent::component_t mem_component= static_cast<MemComponent::component_t>(component);
+    printf("[FI] Setting Write BER %lu for %s\n", rate, MemComponentString(mem_component));
+    getMemoryManager()->setWriteBitErrorRate(mem_component, rate);
 }
 
 void

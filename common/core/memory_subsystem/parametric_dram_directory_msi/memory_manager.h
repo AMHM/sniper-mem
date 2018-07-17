@@ -100,7 +100,9 @@ namespace ParametricDramDirectoryMSI
          }
          void addApprox(addr_64 start, addr_64 end);
          void removeApprox(addr_64 start, addr_64 end);
-         
+         void setReadBitErrorRate(MemComponent::component_t component, UInt64 rate);         
+         void setWriteBitErrorRate(MemComponent::component_t component, UInt64 rate);         
+
          void enableModels();
          void disableModels();
 

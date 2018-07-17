@@ -95,8 +95,8 @@ class Core
       void addApprox(UInt64 start, UInt64 end);
       void removeApprox(UInt64 start, UInt64 end);
 
-      void setReadBer(double ber);
-      void setWriteBer(double ber);
+      void setReadBer(UInt64 component, UInt64 rate);
+      void setWriteBer(UInt64 component, UInt64 rate);
 
       void accessMemoryFast(bool icache, mem_op_t mem_op_type, IntPtr address);
 

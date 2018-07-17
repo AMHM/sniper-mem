@@ -97,6 +97,6 @@
 #define SimInSimulator()          (SimMagic0(SIM_CMD_IN_SIMULATOR)!=SIM_CMD_IN_SIMULATOR)
 #define add_approx(start, finish)            SimMagic2(SIM_CMD_ADD_APPROX, start, finish)
 #define remove_approx(start, finish)         SimMagic2(SIM_CMD_REMOVE_APPROX, start, finish)
-#define set_read_ber(ber)         SimMagic1(SIM_CMD_SET_READ_BER, ber)
-#define set_write_ber(ber)        SimMagic1(SIM_CMD_SET_WRITE_BER, ber)
+#define set_read_er(memcomp, ber)         SimMagic2(SIM_CMD_SET_READ_BER, memcomp, ber)
+#define set_write_er(memcomp, ber)        SimMagic2(SIM_CMD_SET_WRITE_BER, memcomp, ber)
 #endif /* __SIM_API */

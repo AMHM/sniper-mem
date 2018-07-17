@@ -82,6 +82,8 @@ class MemoryManagerBase
       virtual void addL1Hits(bool icache, Core::mem_op_t mem_op_type, UInt64 hits) = 0;
       virtual void addApprox(addr_64 start, addr_64 end) = 0;
       virtual void removeApprox(addr_64 start, addr_64 end) = 0;
+      virtual void setReadBitErrorRate(MemComponent::component_t component, UInt64 rate) = 0;
+      virtual void setWriteBitErrorRate(MemComponent::component_t component, UInt64 rate) = 0;
 
       virtual core_id_t getShmemRequester(const void* pkt_data) = 0;
 

@@ -73,6 +73,8 @@ class Cache : public CacheBase
 
       void addApprox(addr_64 start, addr_64 end);
       void removeApprox(addr_64 start, addr_64 end);
+      void setReadBitErrorRateInCache(uint64_t ber);
+      void setWriteBitErrorRateInCache(uint64_t ber);
 };
 
 template <class T>

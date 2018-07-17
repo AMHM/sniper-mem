@@ -128,3 +128,15 @@ FaultInjector::in_range(addr_64 start, UInt32 data_length)
 {
     return approxRanges.find(Range(start, start+data_length)) != approxRanges.end();
 }
+
+void 
+FaultInjector::setReadBitErrorRate(UInt64 rate)
+{
+      read_bit_eror_rate = rate;
+}
+
+void 
+FaultInjector::setWriteBitErrorRate(UInt64 rate)
+{
+      write_bit_eror_rate = rate;
+}

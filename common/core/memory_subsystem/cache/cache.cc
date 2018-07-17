@@ -193,7 +193,6 @@ void
 Cache::addApprox(addr_64 start, addr_64 end) {
    if(m_fault_injector)
    {
-      printf("[FI] Got fault injector\n");
       m_fault_injector->addApprox(start,end);
    }
 }
@@ -202,7 +201,23 @@ void
 Cache::removeApprox(addr_64 start, addr_64 end) {
    if(m_fault_injector)
    {
-      printf("[FI] [Remove] Got fault injector\n");
       m_fault_injector->removeApprox(start,end);
+   }
+}
+
+void
+Cache::setReadBitErrorRateInCache(uint64_t ber) {
+   if(m_fault_injector)
+   {
+      m_fault_injector->setReadBitErrorRate(ber);
+   }
+}
+
+
+void
+Cache::setWriteBitErrorRateInCache(uint64_t ber) {
+   if(m_fault_injector)
+   {
+      m_fault_injector->setWriteBitErrorRate(ber);
    }
 }

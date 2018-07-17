@@ -693,4 +693,30 @@ MemoryManager::removeApprox(addr_64 start, addr_64 end) {
             getCache(MemComponent::L2_CACHE)->removeApprox(start, end);
       }
 }
+
+void 
+MemoryManager::setReadBitErrorRate(MemComponent::component_t component, UInt64 rate) {
+      
+      if (component == MemComponent::L1_DCACHE)
+      {
+            getL1DCache()->setReadBitErrorRateInCache(rate);
+      }
+      else if (component == MemComponent::L2_CACHE)
+      {
+            getCache(MemComponent::L2_CACHE)->setReadBitErrorRateInCache(rate);
+      }
+}
+
+void 
+MemoryManager::setWriteBitErrorRate(MemComponent::component_t component, UInt64 rate) {
+      
+      if (component == MemComponent::L1_DCACHE)
+      {
+            getL1DCache()->setWriteBitErrorRateInCache(rate);
+      }
+      else if (component == MemComponent::L2_CACHE)
+      {
+            getCache(MemComponent::L2_CACHE)->setWriteBitErrorRateInCache(rate);
+      }
+}
 }

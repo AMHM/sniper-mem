@@ -798,7 +798,7 @@ void gaussian_smooth(unsigned char *image, int rows, int cols, float sigma,
    if(VERBOSE) printf("   Bluring the image in the X-direction.\n");
    for(r=0;r<rows;r++){
       for(c=0;c<cols;c++){
-        if(VERBOSE) printf("Row %d, Col %d\n", r, c);
+        // if(VERBOSE) printf("Row %d, Col %d\n", r, c);
          dot = 0.0;
          sum = 0.0;
          for(cc=(-center);cc<=center;cc++){
