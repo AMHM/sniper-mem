@@ -659,4 +659,39 @@ MemoryManager::disableModels()
       m_dram_cntlr->getDramPerfModel()->disable();
 }
 
+void 
+MemoryManager::addApprox(addr_64 start, addr_64 end) {
+      Sim()->getFaultinjectionManager()->addApprox(start, end);
+}
+
+void 
+MemoryManager::removeApprox(addr_64 start, addr_64 end) {
+      Sim()->getFaultinjectionManager()->removeApprox(start, end);
+}
+
+void 
+MemoryManager::setReadBitErrorRate(MemComponent::component_t component, double rate) {
+      
+      if (component == MemComponent::L1_DCACHE)
+      {
+            getL1DCache()->setReadBitErrorRateInCache(rate);
+      }
+      else if (component == MemComponent::L2_CACHE)
+      {
+            getCache(MemComponent::L2_CACHE)->setReadBitErrorRateInCache(rate);
+      }
+}
+
+void 
+MemoryManager::setWriteBitErrorRate(MemComponent::component_t component, double rate) {
+      
+      if (component == MemComponent::L1_DCACHE)
+      {
+            getL1DCache()->setWriteBitErrorRateInCache(rate);
+      }
+      else if (component == MemComponent::L2_CACHE)
+      {
+            getCache(MemComponent::L2_CACHE)->setWriteBitErrorRateInCache(rate);
+      }
+}
 }

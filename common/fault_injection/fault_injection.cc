@@ -1,5 +1,6 @@
 #include "fault_injection.h"
 #include "fault_injector_random.h"
+#include "fault_injector_range.h"
 #include "simulator.h"
 #include "config.hpp"
 #include "log.h"
@@ -27,6 +28,8 @@ FaultinjectionManager::create()
       injector = FAULT_INJECTOR_NONE;
    else if (s_injector == "random")
       injector = FAULT_INJECTOR_RANDOM;
+   else if (s_injector == "range")
+      injector = FAULT_INJECTOR_RANGE;
    else
       LOG_PRINT_ERROR("Unknown fault injector %s", s_injector.c_str());
 
@@ -48,6 +51,8 @@ FaultinjectionManager::getFaultInjector(UInt32 core_id, MemComponent::component_
          return new FaultInjector(core_id, mem_component);
       case FAULT_INJECTOR_RANDOM:
          return new FaultInjectorRandom(core_id, mem_component);
+      case FAULT_INJECTOR_RANGE:
+         return new FaultInjectorRange(core_id, mem_component);
    }
 
    return NULL;
@@ -56,21 +61,24 @@ FaultinjectionManager::getFaultInjector(UInt32 core_id, MemComponent::component_
 void
 FaultinjectionManager::applyFault(Core *core, IntPtr read_address, UInt32 data_size, MemoryResult &memres, Byte *data, const Byte *fault)
 {
-   switch(m_type)
-   {
-      case FAULT_TYPE_TOGGLE:
-         for(UInt32 i = 0; i < data_size; ++i)
-            data[i] ^= fault[i];
-         break;
-      case FAULT_TYPE_SET0:
-         for(UInt32 i = 0; i < data_size; ++i)
-            data[i] &= ~fault[i];
-         break;
-      case FAULT_TYPE_SET1:
-         for(UInt32 i = 0; i < data_size; ++i)
-            data[i] |= fault[i];
-         break;
-   }
+      if (in_range(read_address, data_size))
+      {
+            switch (m_type)
+            {
+            case FAULT_TYPE_TOGGLE:
+                  for(UInt32 i = 0; i < data_size; ++i)
+                        data[i] ^= fault[i];
+                  break;
+            case FAULT_TYPE_SET0:
+                  for(UInt32 i = 0; i < data_size; ++i)
+                        data[i] &= ~fault[i];
+                  break;
+            case FAULT_TYPE_SET1:
+                  for(UInt32 i = 0; i < data_size; ++i)
+                        data[i] |= fault[i];
+                  break;
+            }
+      }
 }
 
 FaultInjector::FaultInjector(UInt32 core_id, MemComponent::component_t mem_component)
@@ -92,4 +100,46 @@ FaultInjector::postWrite(IntPtr addr, IntPtr location, UInt32 data_size, Byte *f
 {
    // Data at virtual address <addr> has just been written to.
    // Update <fault> here according to errors that occured during the writing of this memory location.
+}
+
+
+void 
+FaultinjectionManager::addApprox(addr_64 start, addr_64 end)
+{
+      approxRanges.insert(Range(start, end));
+}
+
+void 
+FaultinjectionManager::removeApprox(addr_64 start, addr_64 end)
+{
+      approxRanges.erase(Range(start, end));
+}
+
+void 
+FaultinjectionManager::debugApprox()
+{
+    printf("--------------------------------\n");
+    for (Range const& range : approxRanges)
+    {
+          printf("%lx -> %lx\n", (addr_64)range.first, (addr_64)range.second);
+    }
+    printf("--------------------------------\n");
+}
+
+bool 
+FaultinjectionManager::in_range(addr_64 start, UInt32 data_length)
+{
+    return approxRanges.find(Range(start, start+data_length)) != approxRanges.end();
+}
+
+void 
+FaultInjector::setReadBitErrorRate(double rate)
+{
+      read_bit_eror_rate = rate;
+}
+
+void 
+FaultInjector::setWriteBitErrorRate(double rate)
+{
+      write_bit_eror_rate = rate;
 }

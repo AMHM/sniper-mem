@@ -521,6 +521,30 @@ applicationMemCopy(void *dest, const void *src, size_t n)
    memcpy(dest, src, n);
 }
 
+void Core::addApprox(addr_64 start, addr_64 end)
+{
+   getMemoryManager()->addApprox(start, end);
+}
+
+void Core::removeApprox(addr_64 start, addr_64 end)
+{
+   getMemoryManager()->removeApprox(start, end);
+}
+
+void Core::setReadBer(UInt64 component, double rate)
+{
+    MemComponent::component_t mem_component= static_cast<MemComponent::component_t>(component);
+    // printf("[FI] Setting Read BER %f for %s\n", rate, MemComponentString(mem_component));
+    getMemoryManager()->setReadBitErrorRate(mem_component, rate);
+}
+
+void Core::setWriteBer(UInt64 component, double rate)
+{
+    MemComponent::component_t mem_component= static_cast<MemComponent::component_t>(component);
+    // printf("[FI] Setting Write BER %f for %s\n", rate, MemComponentString(mem_component));
+    getMemoryManager()->setWriteBitErrorRate(mem_component, rate);
+}
+
 void
 Core::emulateCpuid(UInt32 eax, UInt32 ecx, cpuid_result_t &res) const
 {

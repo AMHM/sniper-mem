@@ -12,6 +12,8 @@
 #include "core.h"
 #include "fault_injection.h"
 
+typedef UInt64 addr_64;
+
 // Define to enable the set usage histogram
 //#define ENABLE_SET_USAGE_HIST
 
@@ -68,6 +70,9 @@ class Cache : public CacheBase
 
       void enable() { m_enabled = true; }
       void disable() { m_enabled = false; }
+
+      void setReadBitErrorRateInCache(double ber);
+      void setWriteBitErrorRateInCache(double ber);
 };
 
 template <class T>

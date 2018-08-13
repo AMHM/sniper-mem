@@ -98,6 +98,10 @@ namespace ParametricDramDirectoryMSI
          void addL1Hits(bool icache, Core::mem_op_t mem_op_type, UInt64 hits) {
             (icache ? m_cache_cntlrs[MemComponent::L1_ICACHE] : m_cache_cntlrs[MemComponent::L1_DCACHE])->updateHits(mem_op_type, hits);
          }
+         void addApprox(addr_64 start, addr_64 end);
+         void removeApprox(addr_64 start, addr_64 end);
+         void setReadBitErrorRate(MemComponent::component_t component, double rate);         
+         void setWriteBitErrorRate(MemComponent::component_t component, double rate);         
 
          void enableModels();
          void disableModels();

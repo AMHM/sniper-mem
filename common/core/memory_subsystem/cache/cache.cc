@@ -103,7 +103,7 @@ Cache::accessSingleLine(IntPtr addr, access_t access_type,
    {
       // NOTE: assumes error occurs in memory. If we want to model bus errors, insert the error into buff instead
       if (m_fault_injector)
-         m_fault_injector->preRead(addr, set_index * m_associativity + line_index, bytes, (Byte*)m_sets[set_index]->getDataPtr(line_index, block_offset), now);
+            m_fault_injector->preRead(addr, set_index * m_associativity + line_index, bytes, (Byte*)m_sets[set_index]->getDataPtr(line_index, block_offset), now);
 
       set->read_line(line_index, block_offset, buff, bytes, update_replacement);
    }
@@ -182,5 +182,21 @@ Cache::updateHits(Core::mem_op_t mem_op_type, UInt64 hits)
    {
       m_num_accesses += hits;
       m_num_hits += hits;
+   }
+}
+
+void
+Cache::setReadBitErrorRateInCache(double ber) {
+   if(m_fault_injector)
+   {
+      m_fault_injector->setReadBitErrorRate(ber);
+   }
+}
+
+void
+Cache::setWriteBitErrorRateInCache(double ber) {
+   if(m_fault_injector)
+   {
+      m_fault_injector->setWriteBitErrorRate(ber);
    }
 }

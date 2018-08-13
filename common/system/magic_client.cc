@@ -33,6 +33,10 @@ UInt64 handleMagicInstruction(thread_id_t thread_id, UInt64 cmd, UInt64 arg0, UI
    case SIM_CMD_INSTRUMENT_MODE:
    case SIM_CMD_MHZ_GET:
    case SIM_CMD_SET_THREAD_NAME:
+   case SIM_CMD_ADD_APPROX:
+   case SIM_CMD_REMOVE_APPROX:
+   case SIM_CMD_SET_READ_BER:
+   case SIM_CMD_SET_WRITE_BER:
       return handleMagic(thread_id, cmd, arg0, arg1);
    case SIM_CMD_PROC_ID:
    {

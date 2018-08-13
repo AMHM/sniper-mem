@@ -8,8 +8,10 @@ $(error The TARGET variable must be set to use the shared Makefile)
 endif
 
 CC=$(SNIPER_CC)
+CXX=$(SNIPER_CXX)
 LDFLAGS=$(SNIPER_LDFLAGS)
 CFLAGS=$(SNIPER_CFLAGS)
+CXXFLAGS=$(SNIPER_CXXFLAGS)
 
 # '--roi' allows for ROI timing with program hooks instead of full-program timing
 # See ${SNIPER_ROOT}/include/sim_api.h for more information
