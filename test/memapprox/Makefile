@@ -6,6 +6,15 @@ $(TARGET): $(TARGET).o
 
 run_$(TARGET):
 	$(MAKE) -C ../../
-	../../run-sniper -n 1 -c gainestown -g fault_injection/injector="range" -g fault_injection/type="toggle" -g fault_injection/affected="l1d" --roi --viz -- ./memapprox
+	../../run-sniper \
+	--gdb-wait \
+	-n 1 \
+	-c gainestown \
+	-g fault_injection/injector="range" \
+	-g fault_injection/type="toggle" \
+	-g fault_injection/affected="l1d" \
+	--roi \
+	--viz \
+	-- ./memapprox
 
 CLEAN_EXTRA=viz

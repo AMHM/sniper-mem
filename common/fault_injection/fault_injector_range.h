@@ -13,7 +13,11 @@ class FaultInjectorRange : public FaultInjector
       
     protected:
       bool m_active;
-      virtual void inject_range_fault(IntPtr addr, UInt32 data_size, Byte *fault, double rate);
+      virtual bool inject_range_fault(IntPtr addr, UInt32 data_size, Byte *fault, double rate) __attribute__((optimize(0)));
+      UInt64 total_read;
+      UInt64 faulty_read;
+      UInt64 total_write;
+      UInt64 faulty_write;
 };
 
 #endif // __FAULT_INJECTOR_RANGE_H

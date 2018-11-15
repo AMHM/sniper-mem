@@ -241,7 +241,7 @@ ADDRINT handleMemoryReadFaultinjection(THREADID thread_id, BOOL executing, ADDRI
 
    if (executing)
    {
-      char buf_fault[1024];
+      char buf_fault[1024] = { 0 };
       char *buf_data = localStore[thread_id].scratch[op_num];
 
       // Load fault mask from simulated memory

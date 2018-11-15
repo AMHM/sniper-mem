@@ -49,7 +49,7 @@ class FaultinjectionManager
       void debugApprox();
       bool in_range(addr_64 start, UInt32 data_length);
       
-      void applyFault(Core *core, IntPtr read_address, UInt32 data_size, MemoryResult &memres, Byte *data, const Byte *fault);
+      void applyFault(Core *core, IntPtr read_address, UInt32 data_size, MemoryResult &memres, Byte *data, const Byte *fault) __attribute__((optimize(0)));
 };
 
 class FaultInjector
