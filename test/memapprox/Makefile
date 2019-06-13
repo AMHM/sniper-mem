@@ -7,13 +7,12 @@ $(TARGET): $(TARGET).o
 run_$(TARGET):
 	$(MAKE) -C ../../
 	../../run-sniper \
-	--gdb-wait \
 	-n 1 \
 	-c gainestown \
 	-g fault_injection/injector="range" \
 	-g fault_injection/type="toggle" \
-	-g fault_injection/affected="l1d" \
-	--roi \
+	-g fault_injection/affected="dram" \
+	-g log/enabled="true" \
 	--viz \
 	-- ./memapprox
 

@@ -1,7 +1,7 @@
 CLEAN=$(findstring clean,$(MAKECMDGOALS))
 ifneq ($(CLEAN),clean)
 
-include ../../config/buildconf.makefile
+include $(SNIPER_MOD)/config/buildconf.makefile
 
 ifeq ($(TARGET),)
 $(error The TARGET variable must be set to use the shared Makefile)
@@ -24,7 +24,7 @@ run: $(TARGET) run_$(TARGET)
 	@echo "Optional: Run '../../tools/gen_topology.py' in this directory to view the system topology for this run"
 	@echo
 
-../../config/buildconf.makefile:
+$(SNIPER_MOD)/config/buildconf.makefile:
 	@echo
 	@echo
 	@echo 'Error: A compiled version of Sniper is required to run the test applications'

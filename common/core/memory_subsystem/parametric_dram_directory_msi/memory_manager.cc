@@ -680,6 +680,10 @@ MemoryManager::setReadBitErrorRate(MemComponent::component_t component, double r
       {
             getCache(MemComponent::L2_CACHE)->setReadBitErrorRateInCache(rate);
       }
+      else if(component == MemComponent::DRAM)
+      {
+            getDramCntlr()->setReadBitErrorRateInDram(rate);
+      }
 }
 
 void 
@@ -692,6 +696,10 @@ MemoryManager::setWriteBitErrorRate(MemComponent::component_t component, double 
       else if (component == MemComponent::L2_CACHE)
       {
             getCache(MemComponent::L2_CACHE)->setWriteBitErrorRateInCache(rate);
+      }
+      else if(component == MemComponent::DRAM)
+      {
+            getDramCntlr()->setWriteBitErrorRateInDram(rate);
       }
 }
 }

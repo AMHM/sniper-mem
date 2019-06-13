@@ -59,11 +59,11 @@ DramCntlr::getDataFromDram(IntPtr address, core_id_t requester, Byte* data_buf, 
          memset((void*) m_data_map[address], 0x00, getCacheBlockSize());
       }
 
-      // NOTE: assumes error occurs in memory. If we want to model bus errors, insert the error into data_buf instead
-      if (m_fault_injector)
-         m_fault_injector->preRead(address, address, getCacheBlockSize(), (Byte*)m_data_map[address], now);
-
       memcpy((void*) data_buf, (void*) m_data_map[address], getCacheBlockSize());
+
+      // NOTE: assumes error occurs in bus.
+      if (m_fault_injector)
+         m_fault_injector->preRead(address, address, getCacheBlockSize(), data_buf, now);
    }
 
    SubsecondTime dram_access_latency = runDramPerfModel(requester, now, address, READ, perf);
@@ -135,4 +135,20 @@ DramCntlr::printDramAccessCount()
    }
 }
 
+void DramCntlr::setReadBitErrorRateInDram(double ber)
+{
+      if (m_fault_injector)
+      {
+            m_fault_injector->setReadBitErrorRate(ber);
+      }
+}
+
+void DramCntlr::setWriteBitErrorRateInDram(double ber)
+{
+
+      if (m_fault_injector)
+      {
+            m_fault_injector->setWriteBitErrorRate(ber);
+      }
+}
 }

@@ -1,0 +1,18 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "McPat",
+            "type": "python",
+            "request": "launch",
+            "stopOnEntry": true,
+            "pythonPath": "/usr/bin/python",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/test/memapprox",
+            "program": "${workspaceFolder}/tools/mcpat.py"
+        }
+    ]
+}

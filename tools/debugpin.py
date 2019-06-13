@@ -43,7 +43,8 @@ def execute_gdb(cmd, env, pin_home, arch, quiet = False, wait = False, quit = Fa
     f.write('end\n')
   f.close()
 
-  rc = os.system('gdb -quiet -command=%s %s' % (fn, '%(pin_home)s/%(arch)s/bin/pinbin' % locals()))
-  rc >>= 8
+  print ('gdb -quiet -command=%s %s' % (fn, '%(pin_home)s/%(arch)s/bin/pinbin' % locals()))
+  # rc >>= 8
+  rc = 0
 
   return rc

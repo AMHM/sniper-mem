@@ -638,7 +638,7 @@ if not standalone:
     print >> sys.stderr, pin_version
     sys.exit(-1)
 
-  pinoptions = '-mt -injection child'
+  pinoptions = '-mt -injection child -ifeellucky'
   if pin_version >= 49303:
     pinoptions += ' -xyzzy -enable_vsm 0' # TODO: Enable vsm once OpenMP thread exit is solved (Redmine #148)
 
@@ -653,7 +653,7 @@ if not standalone:
     pinoptions += ' -xyzzy -profile -statistic -log_inline'
 
   if use_gdb:
-    pinoptions += ' -pause_tool 1'
+    pinoptions += ' -pause_tool 60'
 
   if use_appdebug:
     if appdebug_nowait:
